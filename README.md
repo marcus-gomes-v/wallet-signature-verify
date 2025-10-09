@@ -70,7 +70,7 @@ fn main() -> anyhow::Result<()> {
 }
 ```
 
-**📚 See more:** [LIBRARY_USAGE.md](./LIBRARY_USAGE.md)
+**📚 See more:** [LIBRARY_USAGE.md](./docs/LIBRARY_USAGE.md)
 
 ---
 
@@ -131,8 +131,8 @@ cargo build --release
 ```
 
 **📚 See more examples:**
-- [QUICKSTART.md](./QUICKSTART.md) - 5-minute quick start
-- [USAGE.md](./USAGE.md) - Examples in Python/Node/Rust
+- [QUICKSTART.md](./docs/QUICKSTART.md) - 5-minute quick start
+- [USAGE.md](./docs/USAGE.md) - Examples in Python/Node/Rust
 - [examples/](./examples/) - Ready-to-use scripts
 
 ---
@@ -219,7 +219,7 @@ if result.is_valid() {
 cargo run --example verify_lib
 ```
 
-**📚 Complete documentation:** [LIBRARY_USAGE.md](./LIBRARY_USAGE.md)
+**📚 Complete documentation:** [LIBRARY_USAGE.md](./docs/LIBRARY_USAGE.md)
 
 ---
 
@@ -372,7 +372,7 @@ The architecture is extensible! To add support for a new wallet:
 3. Register in `WalletType` enum
 4. Test and submit PR!
 
-**📚 Complete guide:** [ADDING_WALLETS.md](./ADDING_WALLETS.md)
+**📚 Complete guide:** [ADDING_WALLETS.md](./docs/ADDING_WALLETS.md)
 
 ### Contributing Code
 
@@ -395,7 +395,7 @@ git push origin feature/my-feature
 # 6. Open a Pull Request
 ```
 
-**📚 See more:** [CONTRIBUTING.md](./CONTRIBUTING.md)
+**📚 See more:** [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
 
 ---
 
@@ -403,11 +403,11 @@ git push origin feature/my-feature
 
 | File | Description |
 |------|-------------|
-| [QUICKSTART.md](./QUICKSTART.md) | 5-minute quick start |
-| [USAGE.md](./USAGE.md) | Examples in Python/Node/Rust/Bash |
-| [LIBRARY_USAGE.md](./LIBRARY_USAGE.md) | Complete guide for using as Rust library |
-| [CONTRIBUTING.md](./CONTRIBUTING.md) | How to contribute to the project |
-| [ADDING_WALLETS.md](./ADDING_WALLETS.md) | How to add support for new wallets |
+| [QUICKSTART.md](./docs/QUICKSTART.md) | 5-minute quick start |
+| [USAGE.md](./docs/USAGE.md) | Examples in Python/Node/Rust/Bash |
+| [LIBRARY_USAGE.md](./docs/LIBRARY_USAGE.md) | Complete guide for using as Rust library |
+| [CONTRIBUTING.md](./docs/CONTRIBUTING.md) | How to contribute to the project |
+| [ADDING_WALLETS.md](./docs/ADDING_WALLETS.md) | How to add support for new wallets |
 | [examples/](./examples/) | Ready-to-use scripts |
 
 ---
@@ -461,7 +461,7 @@ RUST_LOG=error cargo run --release -- --wallet xaman --signature "..." --address
 - Check if the signature hex is complete
 - Confirm the challenge matches exactly
 - Ensure the address is correct
-- Test with example data from [QUICKSTART.md](./QUICKSTART.md)
+- Test with example data from [QUICKSTART.md](./docs/QUICKSTART.md)
 
 **Arguments error (exit code 2):**
 - Use `--help` to see correct syntax
