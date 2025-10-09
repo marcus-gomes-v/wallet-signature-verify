@@ -4,7 +4,7 @@
 [![Documentation](https://docs.rs/wallet-signature-verify/badge.svg)](https://docs.rs/wallet-signature-verify)
 [![Build Status](https://github.com/marcus-gomes-v/wallet-signature-verify/actions/workflows/rust.yml/badge.svg)](https://github.com/marcus-gomes-v/wallet-signature-verify/actions/workflows/rust.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org)
+[![Rust](https://img.shields.io/badge/rust-1.80%2B-orange.svg)](https://www.rust-lang.org)
 
 Universal library and CLI for cryptographic verification of wallet signatures using **challenge-response authentication**.
 
@@ -83,7 +83,7 @@ fn main() -> anyhow::Result<()> {
 ## 🚀 Installation
 
 ### Prerequisites
-- Rust 1.70+ ([rustup.rs](https://rustup.rs/))
+- Rust 1.80+ ([rustup.rs](https://rustup.rs/))
 
 ### Build
 ```bash
