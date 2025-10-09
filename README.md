@@ -1,5 +1,10 @@
 # 🔐 Wallet Signature Verifier
 
+[![Crates.io](https://img.shields.io/crates/v/wallet-signature-verify.svg)](https://crates.io/crates/wallet-signature-verify)
+[![Documentation](https://docs.rs/wallet-signature-verify/badge.svg)](https://docs.rs/wallet-signature-verify)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org)
+
 Universal library and CLI for cryptographic verification of wallet signatures using **challenge-response authentication**.
 
 ## 🎯 What does it do?
@@ -176,16 +181,21 @@ wallet-signature-verify = { version = "0.1", features = ["all-wallets"] }
 ```
 
 **Available Features:**
-- `xaman` - Xaman Wallet (XRPL SignIn) support
-- `web3auth` - Web3Auth wallet support
-- `cli` - CLI binary with logging (for binary only)
-- `all-wallets` - Convenience feature for all wallets
-- **default** = `["xaman", "web3auth", "cli"]`
+
+| Feature | Description | Documentation |
+|---------|-------------|---------------|
+| `xaman` | Xaman Wallet (XRPL SignIn) support | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/xaman/index.html) |
+| `web3auth` | Web3Auth wallet support | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/web3auth/index.html) |
+| `cli` | CLI binary with logging (for binary only) | - |
+| `all-wallets` | Convenience feature for all wallets | - |
+| **default** | `["xaman", "web3auth", "cli"]` | - |
 
 **Benefits of selective features:**
 - ✅ Faster compile times
 - ✅ Smaller binary size
 - ✅ Only include what you need
+
+**📚 [View all features on docs.rs](https://docs.rs/crate/wallet-signature-verify/latest/features)**
 
 ### Basic Example
 ```rust
