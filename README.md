@@ -2,6 +2,7 @@
 
 [![Crates.io](https://img.shields.io/crates/v/wallet-signature-verify.svg)](https://crates.io/crates/wallet-signature-verify)
 [![Documentation](https://docs.rs/wallet-signature-verify/badge.svg)](https://docs.rs/wallet-signature-verify)
+[![Build Status](https://github.com/marcus-gomes-v/wallet-signature-verify/actions/workflows/rust.yml/badge.svg)](https://github.com/marcus-gomes-v/wallet-signature-verify/actions/workflows/rust.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org)
 
