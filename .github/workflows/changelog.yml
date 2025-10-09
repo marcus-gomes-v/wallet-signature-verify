@@ -34,6 +34,14 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+          # Checkout main branch (we're in detached HEAD from tag)
+          git fetch origin main
+          git checkout main
+
+          # Add and commit changes
           git add CHANGELOG.md
           git commit -m "chore: update CHANGELOG.md for ${{ github.ref_name }}" || exit 0
-          git push
+
+          # Push to main
+          git push origin main
