@@ -1,7 +1,8 @@
 [package]
 name = "wallet-signature-verify"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
+rust-version = "1.70"
 description = "Universal wallet signature verifier using challenge-response authentication. Receives a challenge, wallet address, and signature, then validates that the address actually signed the challenge."
 license = "MIT"
 keywords = ["wallet", "signature", "verification", "authentication", "cryptography"]
@@ -15,6 +16,7 @@ homepage = "https://github.com/marcus-gomes-v/wallet-signature-verify"
 [package.metadata.docs.rs]
 all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
+targets = ["x86_64-unknown-linux-gnu"]
 
 [lib]
 name = "wallet_signature_verify"
