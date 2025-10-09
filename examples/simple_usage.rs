@@ -2,9 +2,7 @@
 //!
 //! Run with: cargo run --example simple_usage
 
-use wallet_signature_verify::{
-    wallets::{get_wallet_provider, WalletType, VerificationInput},
-};
+use wallet_signature_verify::wallets::{get_wallet_provider, VerificationInput, WalletType};
 
 fn main() -> anyhow::Result<()> {
     println!("🔐 Wallet Signature Verify - Simple Usage Example\n");
@@ -28,9 +26,18 @@ fn main() -> anyhow::Result<()> {
         match provider.verify(&input) {
             Ok(result) => {
                 println!("Verification Result:");
-                println!("  Address valid:   {}", if result.address_valid { "✅" } else { "❌" });
-                println!("  Challenge valid: {}", if result.challenge_valid { "✅" } else { "❌" });
-                println!("  Signature valid: {}", if result.signature_valid { "✅" } else { "❌" });
+                println!(
+                    "  Address valid:   {}",
+                    if result.address_valid { "✅" } else { "❌" }
+                );
+                println!(
+                    "  Challenge valid: {}",
+                    if result.challenge_valid { "✅" } else { "❌" }
+                );
+                println!(
+                    "  Signature valid: {}",
+                    if result.signature_valid { "✅" } else { "❌" }
+                );
                 println!("  Derived address: {}", result.derived_address);
 
                 if result.is_valid() {

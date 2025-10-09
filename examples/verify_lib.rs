@@ -9,8 +9,8 @@
 // wallet-signature-verify = { path = "../wallet-signature-verify" }
 // ```
 
-use wallet_signature_verify::{
-    wallets::{get_wallet_provider, registry::WalletType, VerificationInput},
+use wallet_signature_verify::wallets::{
+    get_wallet_provider, registry::WalletType, VerificationInput,
 };
 
 fn main() -> anyhow::Result<()> {
@@ -80,11 +80,18 @@ fn main() -> anyhow::Result<()> {
     match WalletType::from_str(wallet_type_str) {
         Ok(wallet_type) => {
             let provider = get_wallet_provider(wallet_type);
-            println!("   ✅ Wallet '{}' supported: {}", wallet_type_str, provider.description());
+            println!(
+                "   ✅ Wallet '{}' supported: {}",
+                wallet_type_str,
+                provider.description()
+            );
         }
         Err(e) => {
             println!("   ❌ Error: {}", e);
-            println!("   💡 Supported wallets: {:?}", WalletType::supported_wallets());
+            println!(
+                "   💡 Supported wallets: {:?}",
+                WalletType::supported_wallets()
+            );
         }
     }
 
@@ -111,8 +118,7 @@ fn verify_user_login(
     address: String,
     challenge: Option<String>,
 ) -> anyhow::Result<bool> {
-    let wallet_type = WalletType::from_str(wallet_type)
-        .map_err(|e| anyhow::anyhow!(e))?;
+    let wallet_type = WalletType::from_str(wallet_type).map_err(|e| anyhow::anyhow!(e))?;
 
     let provider = get_wallet_provider(wallet_type);
 

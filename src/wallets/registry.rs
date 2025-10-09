@@ -18,6 +18,10 @@ pub enum WalletType {
 
 impl WalletType {
     /// Parse string to WalletType
+    ///
+    /// Note: We use a custom `from_str` instead of implementing `FromStr` trait
+    /// to return a more descriptive error message with supported wallets.
+    #[allow(clippy::should_implement_trait)]
     pub fn from_str(s: &str) -> Result<Self, String> {
         match s.to_lowercase().as_str() {
             #[cfg(feature = "xaman")]
@@ -29,6 +33,7 @@ impl WalletType {
     }
 
     /// List all supported wallets (only those enabled via features)
+    #[allow(clippy::vec_init_then_push)] // Needed due to conditional compilation
     pub fn supported_wallets() -> Vec<&'static str> {
         let mut wallets = Vec::new();
 

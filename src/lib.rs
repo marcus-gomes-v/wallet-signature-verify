@@ -107,7 +107,8 @@ pub fn verify_xrpl_signin(
     let derived_address = ripple_address_codec::encode_account_id(&account_id);
     let address_valid = derived_address == expected_address;
 
-    log::info!("Address verification: {} (derived: {})",
+    log::info!(
+        "Address verification: {} (derived: {})",
         if address_valid { "VALID" } else { "INVALID" },
         derived_address
     );
@@ -116,7 +117,8 @@ pub fn verify_xrpl_signin(
     let (challenge_valid, found_challenge) = verify_challenge(&fields, expected_challenge);
 
     if expected_challenge.is_some() {
-        log::info!("Challenge verification: {}",
+        log::info!(
+            "Challenge verification: {}",
             if challenge_valid { "VALID" } else { "INVALID" }
         );
     }
@@ -124,7 +126,8 @@ pub fn verify_xrpl_signin(
     // 3. Verify Signature
     let signature_valid = verify_cryptographic_signature(signed_hex, &fields)?;
 
-    log::info!("Signature verification: {}",
+    log::info!(
+        "Signature verification: {}",
         if signature_valid { "VALID" } else { "INVALID" }
     );
 
@@ -169,11 +172,7 @@ fn verify_cryptographic_signature(
     let digest = sha512half(&unsigned_prefixed);
     log::debug!("SHA-512Half digest calculated");
 
-    let signature_valid = verify_signature(
-        &fields.signing_pubkey,
-        &fields.txn_signature,
-        &digest,
-    );
+    let signature_valid = verify_signature(&fields.signing_pubkey, &fields.txn_signature, &digest);
 
     Ok(signature_valid)
 }

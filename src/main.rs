@@ -1,14 +1,19 @@
+use std::env;
 use wallet_signature_verify::{
     output::print_verification_result,
-    wallets::{get_wallet_provider, registry::unsupported_wallet_error, VerificationInput, WalletType},
+    wallets::{
+        get_wallet_provider, registry::unsupported_wallet_error, VerificationInput, WalletType,
+    },
 };
-use std::env;
 
 fn print_usage(program_name: &str) {
     eprintln!("Wallet Signature Verifier - Challenge-Response Authentication");
     eprintln!();
     eprintln!("Usage:");
-    eprintln!("  {} --wallet <wallet_type> --signature <sig> --address <addr> --challenge <challenge>", program_name);
+    eprintln!(
+        "  {} --wallet <wallet_type> --signature <sig> --address <addr> --challenge <challenge>",
+        program_name
+    );
     eprintln!();
     eprintln!("Environment Variables:");
     eprintln!("  RUST_LOG=debug    Show detailed verification steps");
@@ -20,7 +25,9 @@ fn print_usage(program_name: &str) {
     eprintln!("  --wallet <type>        Wallet type (xaman, web3auth)");
     eprintln!("  --signature <data>     Signature data (hex blob for Xaman, DER sig for Web3Auth)");
     eprintln!("  --address <addr>       Expected XRP address (rAddress format)");
-    eprintln!("  --challenge <str>      Challenge string (optional for Xaman, required for Web3Auth)");
+    eprintln!(
+        "  --challenge <str>      Challenge string (optional for Xaman, required for Web3Auth)"
+    );
     eprintln!();
     eprintln!("Supported Wallets:");
     for wallet in WalletType::supported_wallets() {
@@ -30,10 +37,16 @@ fn print_usage(program_name: &str) {
     eprintln!();
     eprintln!("Examples:");
     eprintln!("  # Xaman");
-    eprintln!("  {} --wallet xaman --signature <hex_blob> --address <addr> --challenge <str>", program_name);
+    eprintln!(
+        "  {} --wallet xaman --signature <hex_blob> --address <addr> --challenge <str>",
+        program_name
+    );
     eprintln!();
     eprintln!("  # Web3Auth");
-    eprintln!("  {} --wallet web3auth --signature <der_hex> --address <addr> --challenge <str>", program_name);
+    eprintln!(
+        "  {} --wallet web3auth --signature <der_hex> --address <addr> --challenge <str>",
+        program_name
+    );
 }
 
 fn main() -> anyhow::Result<()> {

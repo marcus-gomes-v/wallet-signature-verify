@@ -74,7 +74,10 @@ pub fn print_verification_result(
         println!("  ✅ Cryptographic signature valid");
         println!();
         println!("This combination proves the user controls the private key");
-        println!("for address {} and signed THIS specific challenge.", expected_address);
+        println!(
+            "for address {} and signed THIS specific challenge.",
+            expected_address
+        );
     } else {
         println!("❌ AUTHENTICATION FAILED");
         println!();

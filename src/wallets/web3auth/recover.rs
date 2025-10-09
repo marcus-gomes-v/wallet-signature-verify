@@ -34,7 +34,8 @@ pub fn recover_pubkey_from_signature(
             {
                 if let Ok(pubkey) = secp.recover_ecdsa(&message, &recoverable_sig) {
                     let pubkey_bytes = pubkey.serialize().to_vec();
-                    log::debug!("Successfully recovered pubkey with recovery ID {}: {}",
+                    log::debug!(
+                        "Successfully recovered pubkey with recovery ID {}: {}",
                         recovery_id,
                         hex::encode(&pubkey_bytes)
                     );
@@ -44,6 +45,9 @@ pub fn recover_pubkey_from_signature(
         }
     }
 
-    log::debug!("Public key recovery complete. Found {} candidates", candidates.len());
+    log::debug!(
+        "Public key recovery complete. Found {} candidates",
+        candidates.len()
+    );
     candidates
 }

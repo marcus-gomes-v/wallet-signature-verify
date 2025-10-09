@@ -1,6 +1,6 @@
+use super::recover::recover_pubkey_from_signature;
 use crate::crypto::{account_id_from_pubkey, sha512half};
 use crate::types::VerificationResult;
-use super::recover::recover_pubkey_from_signature;
 use hex::FromHex;
 use secp256k1::{ecdsa::Signature as EcdsaSignature, Message, PublicKey, Secp256k1};
 
