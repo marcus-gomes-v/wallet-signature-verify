@@ -1,0 +1,38 @@
+[package]
+name = "wallet-signature-verify"
+version = "0.1.0"
+edition = "2021"
+description = "Universal wallet signature verifier using challenge-response authentication. Receives a challenge, wallet address, and signature, then validates that the address actually signed the challenge."
+license = "MIT"
+keywords = ["wallet", "signature", "verification", "authentication", "cryptography"]
+categories = ["authentication", "cryptography"]
+repository = "https://github.com/marcus-gomes-v/wallet-signature-verify"
+readme = "README.md"
+
+[lib]
+name = "wallet_signature_verify"
+path = "src/lib.rs"
+
+[[bin]]
+name = "wallet-signature-verify"
+path = "src/main.rs"
+required-features = ["cli"]
+
+# Features allow users to choose which wallets to include
+[features]
+default = ["xaman", "web3auth", "cli"]
+cli = ["env_logger"]  # CLI-specific features
+xaman = []            # Xaman wallet support
+web3auth = []         # Web3Auth wallet support
+all-wallets = ["xaman", "web3auth"]  # Convenience feature for all wallets
+
+[dependencies]
+anyhow = "1"
+hex = "0.4"
+sha2 = "0.10"
+ripemd = "0.1"
+ripple-address-codec = "0.1"
+secp256k1 = { version = "0.29", features = ["global-context", "recovery"] }
+ed25519-dalek = "2"
+log = "0.4"
+env_logger = { version = "0.11", optional = true }
