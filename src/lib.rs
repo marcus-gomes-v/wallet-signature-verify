@@ -1,3 +1,5 @@
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 //! # Wallet Signature Verify
 //!
 //! Universal wallet signature verifier using challenge-response authentication.
