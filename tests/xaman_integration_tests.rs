@@ -169,7 +169,8 @@ fn test_xaman_different_challenges_unique() {
 
     let expected_address = "rBLiJjnGhQr8t1DUSXWfvcNWxX5mPiVSWU";
     let correct_challenge = "example.com:1760079290:57e06102-c0c8-4cf8-be97-530c2515a55d:synk:rBLiJjnGhQr8t1DUSXWfvcNWxX5mPiVSWU";
-    let different_challenge = "example.com:9999999999:different-uuid-here:synk:rBLiJjnGhQr8t1DUSXWfvcNWxX5mPiVSWU";
+    let different_challenge =
+        "example.com:9999999999:different-uuid-here:synk:rBLiJjnGhQr8t1DUSXWfvcNWxX5mPiVSWU";
 
     // Correct challenge should work
     let result_correct = verify_xrpl_signin(signed_hex, expected_address, Some(correct_challenge))
@@ -184,7 +185,10 @@ fn test_xaman_different_challenges_unique() {
         !result_different.challenge_valid,
         "Different challenge must fail"
     );
-    assert!(!result_different.is_valid(), "Replay attack must be prevented");
+    assert!(
+        !result_different.is_valid(),
+        "Replay attack must be prevented"
+    );
 }
 
 /// Stress test: Verify determinism (same inputs = same outputs)
