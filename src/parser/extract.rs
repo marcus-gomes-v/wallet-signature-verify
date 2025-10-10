@@ -15,8 +15,8 @@ pub fn extract_fields(hex: &str) -> anyhow::Result<TransactionFields> {
 
     let mut i = 0;
     while i < bytes.len() {
-        // Field 0x73 = SigningPubKey
-        if bytes[i] == 0x73 && i + 1 < bytes.len() {
+        // Field 0x73 = SigningPubKey (only take the first one)
+        if bytes[i] == 0x73 && i + 1 < bytes.len() && signing_pubkey.is_empty() {
             i += 1;
             let len = bytes[i] as usize;
             i += 1;
@@ -28,8 +28,8 @@ pub fn extract_fields(hex: &str) -> anyhow::Result<TransactionFields> {
             continue;
         }
 
-        // Field 0x74 = TxnSignature
-        if bytes[i] == 0x74 && i + 1 < bytes.len() {
+        // Field 0x74 = TxnSignature (only take the first one)
+        if bytes[i] == 0x74 && i + 1 < bytes.len() && txn_signature.is_empty() {
             i += 1;
             let len = bytes[i] as usize;
             i += 1;

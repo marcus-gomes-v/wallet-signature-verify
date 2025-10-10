@@ -65,16 +65,16 @@ mod tests {
 
     #[test]
     fn test_account_id_from_pubkey_secp256k1() {
-        // Real XRPL public key (secp256k1) from our test case
+        // Real XRPL public key (secp256k1) from our example.com test case
         let pubkey =
-            hex::decode("02DB48115142459C05AA0D26F3752ADC9C5AF8348ADCF22A8CA73D5DF1839A1905")
+            hex::decode("02ACE0AE76CC7DA925442A417FA3618811B5043A66566C9909503D22A96514B2B8")
                 .unwrap();
 
         let account_id = account_id_from_pubkey(&pubkey);
 
-        // This should derive to rnyBzMHbmJMzzhk4NoyyuqKzsahfHFiARa
+        // This should derive to rBLiJjnGhQr8t1DUSXWfvcNWxX5mPiVSWU
         let address = ripple_address_codec::encode_account_id(&account_id);
-        assert_eq!(address, "rnyBzMHbmJMzzhk4NoyyuqKzsahfHFiARa");
+        assert_eq!(address, "rBLiJjnGhQr8t1DUSXWfvcNWxX5mPiVSWU");
     }
 
     #[test]
@@ -95,7 +95,7 @@ mod tests {
     #[test]
     fn test_account_id_length() {
         let pubkey =
-            hex::decode("02DB48115142459C05AA0D26F3752ADC9C5AF8348ADCF22A8CA73D5DF1839A1905")
+            hex::decode("02ACE0AE76CC7DA925442A417FA3618811B5043A66566C9909503D22A96514B2B8")
                 .unwrap();
 
         let account_id = account_id_from_pubkey(&pubkey);
@@ -118,7 +118,7 @@ mod tests {
     fn test_account_id_deterministic() {
         // Same public key should always produce same account ID
         let pubkey =
-            hex::decode("02DB48115142459C05AA0D26F3752ADC9C5AF8348ADCF22A8CA73D5DF1839A1905")
+            hex::decode("02ACE0AE76CC7DA925442A417FA3618811B5043A66566C9909503D22A96514B2B8")
                 .unwrap();
 
         let account_id1 = account_id_from_pubkey(&pubkey);

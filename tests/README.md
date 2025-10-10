@@ -71,9 +71,10 @@ Located in: `tests/xaman_integration_tests.rs`
 
 **Real Signatures Used:**
 ```
-Address: rnyBzMHbmJMzzhk4NoyyuqKzsahfHFiARa
-Public Key: 02DB48115142459C05AA0D26F3752ADC9C5AF8348ADCF22A8CA73D5DF1839A1905
+Address: rBLiJjnGhQr8t1DUSXWfvcNWxX5mPiVSWU (example.com test address)
+Public Key: 02ACE0AE76CC7DA925442A417FA3618811B5043A66566C9909503D22A96514B2B8
 Signature Algorithm: ECDSA secp256k1 (DER format)
+Challenge: example.com:timestamp:uuid:action:address
 ```
 
 **Attack Vectors Tested:**
