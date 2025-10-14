@@ -13,7 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Miscellaneous Tasks
 
-- Improve get first always 073 logic
+- Update CHANGELOG.md for v0.1.5
+- Update Cargo.lock for v0.1.5
+- Improving get first always 073:
+- Update to version 0.1.6
 
 ## [0.1.5] - 2025-10-10
 
