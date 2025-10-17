@@ -1,0 +1,6 @@
+# Cargo configuration for this project
+# This ensures builds are done in the local ./target directory
+
+[build]
+# Use local target directory instead of home folder
+target-dir = "target"

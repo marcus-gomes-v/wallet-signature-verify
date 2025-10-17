@@ -35,6 +35,10 @@ pub mod web3auth;
 #[cfg_attr(docsrs, doc(cfg(feature = "xaman")))]
 pub mod xaman;
 
+#[cfg(feature = "bifrost")]
+#[cfg_attr(docsrs, doc(cfg(feature = "bifrost")))]
+pub mod bifrost;
+
 pub use provider::{VerificationInput, WalletProvider};
 pub use registry::{get_wallet_provider, WalletType};
 
@@ -45,3 +49,7 @@ pub use web3auth::Web3AuthProvider;
 #[cfg(feature = "xaman")]
 #[cfg_attr(docsrs, doc(cfg(feature = "xaman")))]
 pub use xaman::XamanProvider;
+
+#[cfg(feature = "bifrost")]
+#[cfg_attr(docsrs, doc(cfg(feature = "bifrost")))]
+pub use bifrost::BifrostProvider;

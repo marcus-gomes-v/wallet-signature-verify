@@ -7,6 +7,9 @@ use super::XamanProvider;
 #[cfg(feature = "web3auth")]
 use super::Web3AuthProvider;
 
+#[cfg(feature = "bifrost")]
+use super::BifrostProvider;
+
 /// Supported wallet types
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum WalletType {
@@ -14,6 +17,8 @@ pub enum WalletType {
     Xaman,
     #[cfg(feature = "web3auth")]
     Web3Auth,
+    #[cfg(feature = "bifrost")]
+    Bifrost,
 }
 
 impl WalletType {
@@ -28,6 +33,8 @@ impl WalletType {
             "xaman" | "xumm" => Ok(WalletType::Xaman),
             #[cfg(feature = "web3auth")]
             "web3auth" => Ok(WalletType::Web3Auth),
+            #[cfg(feature = "bifrost")]
+            "bifrost" => Ok(WalletType::Bifrost),
             _ => Err(format!("Wallet '{}' is not supported or not enabled", s)),
         }
     }
@@ -43,6 +50,9 @@ impl WalletType {
         #[cfg(feature = "web3auth")]
         wallets.push("web3auth");
 
+        #[cfg(feature = "bifrost")]
+        wallets.push("bifrost");
+
         wallets
     }
 }
@@ -54,6 +64,8 @@ impl fmt::Display for WalletType {
             WalletType::Xaman => write!(f, "Xaman"),
             #[cfg(feature = "web3auth")]
             WalletType::Web3Auth => write!(f, "Web3Auth"),
+            #[cfg(feature = "bifrost")]
+            WalletType::Bifrost => write!(f, "Bifrost"),
         }
     }
 }
@@ -65,6 +77,8 @@ pub fn get_wallet_provider(wallet_type: WalletType) -> Box<dyn WalletProvider> {
         WalletType::Xaman => Box::new(XamanProvider),
         #[cfg(feature = "web3auth")]
         WalletType::Web3Auth => Box::new(Web3AuthProvider),
+        #[cfg(feature = "bifrost")]
+        WalletType::Bifrost => Box::new(BifrostProvider),
     }
 }
 
