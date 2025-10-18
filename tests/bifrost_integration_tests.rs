@@ -20,13 +20,22 @@ fn test_bifrost_valid_signature() {
 
     let result = verify_evm_signature(signature, challenge, address);
 
-    assert!(result.is_ok(), "Valid Bifrost signature should verify successfully");
+    assert!(
+        result.is_ok(),
+        "Valid Bifrost signature should verify successfully"
+    );
 
     let verification = result.unwrap();
-    assert!(verification.is_valid(), "All verification checks should pass");
+    assert!(
+        verification.is_valid(),
+        "All verification checks should pass"
+    );
     assert!(verification.address_valid, "Address should be valid");
     assert!(verification.challenge_valid, "Challenge should be valid");
-    assert!(verification.signature_valid, "Signature should be cryptographically valid");
+    assert!(
+        verification.signature_valid,
+        "Signature should be cryptographically valid"
+    );
 }
 
 /// Test Bifrost signature verification without 0x prefix
@@ -39,7 +48,10 @@ fn test_bifrost_signature_without_0x_prefix() {
     let result = verify_evm_signature(signature, challenge, address);
 
     // Should work without 0x prefix as well
-    assert!(result.is_ok(), "Signature without 0x prefix should also work");
+    assert!(
+        result.is_ok(),
+        "Signature without 0x prefix should also work"
+    );
     assert!(result.unwrap().is_valid(), "Verification should pass");
 }
 
@@ -52,10 +64,16 @@ fn test_bifrost_wrong_address() {
 
     let result = verify_evm_signature(signature, challenge, wrong_address);
 
-    assert!(result.is_ok(), "Should not error, but validation should fail");
+    assert!(
+        result.is_ok(),
+        "Should not error, but validation should fail"
+    );
 
     let verification = result.unwrap();
-    assert!(!verification.is_valid(), "Verification should fail with wrong address");
+    assert!(
+        !verification.is_valid(),
+        "Verification should fail with wrong address"
+    );
     assert!(!verification.address_valid, "Address check should fail");
 }
 
@@ -63,15 +81,22 @@ fn test_bifrost_wrong_address() {
 #[test]
 fn test_bifrost_wrong_challenge() {
     let signature = "0xe5092134a1e3a91dafe7095916466a00d93fa01c540914fc3a010c05220281eb1f8fbcb34ce784875cd4a01cabef782c3c0f7e33d508410e957fb01c1c5b10071b";
-    let wrong_challenge = "nuff.tech:9999999999:different:challenge:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
+    let wrong_challenge =
+        "nuff.tech:9999999999:different:challenge:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
     let address = "0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
 
     let result = verify_evm_signature(signature, wrong_challenge, address);
 
-    assert!(result.is_ok(), "Should not error, but validation should fail");
+    assert!(
+        result.is_ok(),
+        "Should not error, but validation should fail"
+    );
 
     let verification = result.unwrap();
-    assert!(!verification.is_valid(), "Verification should fail with wrong challenge");
+    assert!(
+        !verification.is_valid(),
+        "Verification should fail with wrong challenge"
+    );
 }
 
 /// Test Bifrost with invalid signature format (too short)
@@ -83,7 +108,10 @@ fn test_bifrost_invalid_signature_length() {
 
     let result = verify_evm_signature(invalid_signature, challenge, address);
 
-    assert!(result.is_err(), "Invalid signature length should return error");
+    assert!(
+        result.is_err(),
+        "Invalid signature length should return error"
+    );
 }
 
 /// Test Bifrost with malformed signature hex
@@ -108,14 +136,18 @@ fn test_bifrost_address_case_insensitive() {
     // Test with lowercase address
     let address_lowercase = "0x33f9d9f0348c1a4bace2ad839903bbd47f430651";
     let result_lower = verify_evm_signature(signature, challenge, address_lowercase);
-    assert!(result_lower.is_ok() && result_lower.unwrap().is_valid(),
-        "Lowercase address should work");
+    assert!(
+        result_lower.is_ok() && result_lower.unwrap().is_valid(),
+        "Lowercase address should work"
+    );
 
     // Test with uppercase address
     let address_uppercase = "0x33F9D9F0348C1A4BACE2AD839903BBD47F430651";
     let result_upper = verify_evm_signature(signature, challenge, address_uppercase);
-    assert!(result_upper.is_ok() && result_upper.unwrap().is_valid(),
-        "Uppercase address should work");
+    assert!(
+        result_upper.is_ok() && result_upper.unwrap().is_valid(),
+        "Uppercase address should work"
+    );
 }
 
 /// Test that Bifrost verification is deterministic
@@ -154,7 +186,10 @@ fn test_bifrost_empty_challenge() {
 
     // Should not panic, but validation should fail
     assert!(result.is_ok(), "Should not panic with empty challenge");
-    assert!(!result.unwrap().is_valid(), "Should fail validation with empty challenge");
+    assert!(
+        !result.unwrap().is_valid(),
+        "Should fail validation with empty challenge"
+    );
 }
 
 /// Test Bifrost signature format (65 bytes: r + s + v)
@@ -166,10 +201,17 @@ fn test_bifrost_signature_components() {
     let sig_hex = signature.strip_prefix("0x").unwrap_or(signature);
 
     // Should be exactly 130 hex characters (65 bytes)
-    assert_eq!(sig_hex.len(), 130, "Signature should be 130 hex chars (65 bytes)");
+    assert_eq!(
+        sig_hex.len(),
+        130,
+        "Signature should be 130 hex chars (65 bytes)"
+    );
 
     // Should be valid hex
-    assert!(sig_hex.chars().all(|c| c.is_ascii_hexdigit()), "Should be valid hex");
+    assert!(
+        sig_hex.chars().all(|c| c.is_ascii_hexdigit()),
+        "Should be valid hex"
+    );
 }
 
 /// Test that Bifrost uses EIP-191 message format
@@ -185,6 +227,8 @@ fn test_bifrost_eip191_format() {
     let result = verify_evm_signature(signature, challenge, address);
 
     // If this passes, it confirms EIP-191 is being used
-    assert!(result.is_ok() && result.unwrap().is_valid(),
-        "Valid EIP-191 signature should verify");
+    assert!(
+        result.is_ok() && result.unwrap().is_valid(),
+        "Valid EIP-191 signature should verify"
+    );
 }

@@ -1,8 +1,5 @@
 use crate::types::VerificationResult;
-use ethers_core::{
-    types::Signature,
-    utils::hash_message,
-};
+use ethers_core::{types::Signature, utils::hash_message};
 use hex::FromHex;
 
 /// Verifies an EVM (Ethereum-style) signature
@@ -71,7 +68,7 @@ pub fn verify_evm_signature(
 
     Ok(VerificationResult {
         address_valid,
-        challenge_valid: true, // Challenge is what we signed
+        challenge_valid: true,          // Challenge is what we signed
         signature_valid: address_valid, // If address matches, signature is valid
         derived_address: recovered_address_str,
         found_challenge: Some(challenge.to_string()),

@@ -3,6 +3,38 @@ use super::core::verify_evm_signature;
 use crate::types::VerificationResult;
 
 /// Provider for Bifrost and other EVM-compatible wallets
+///
+/// # Overview
+///
+/// BifrostProvider implements signature verification for Ethereum-style wallets
+/// including Bifrost, MetaMask, WalletConnect, and other EVM-compatible wallets.
+///
+/// # Signature Format
+///
+/// Uses EIP-191 personal_sign format:
+/// - Signature: 65 bytes (r + s + v) = 130 hex characters
+/// - Address: Ethereum address (0x + 40 hex characters)
+/// - Message: Any UTF-8 string (hashed with EIP-191 prefix)
+///
+/// # Example
+///
+/// ```rust,no_run
+/// use wallet_signature_verify::wallets::{get_wallet_provider, WalletType, VerificationInput};
+///
+/// let input = VerificationInput {
+///     signature_data: "0xe5092134a1e3a91dafe7095916466a00...".to_string(),
+///     expected_address: "0x33f9D9f0348c1a4Bace2ad839903bBD47F430651".to_string(),
+///     challenge: Some("nuff.tech:1760706960:uuid:login:0x...".to_string()),
+/// };
+///
+/// let provider = get_wallet_provider(WalletType::Bifrost);
+/// let result = provider.verify(&input)?;
+///
+/// if result.is_valid() {
+///     println!("✅ Valid Ethereum signature");
+/// }
+/// # Ok::<(), anyhow::Error>(())
+/// ```
 pub struct BifrostProvider;
 
 impl WalletProvider for BifrostProvider {

@@ -23,6 +23,7 @@ This tool implements a **secure authentication system** based on 4 components:
 ### Currently supports:
 - 🦊 **Xaman Wallet** (XRPL SignIn transactions)
 - 🌐 **Web3Auth** (secp256k1 raw signatures)
+- 🌉 **Bifrost Wallet** (EVM-compatible wallets with EIP-191 signatures)
 - 🔧 **Extensible architecture** to easily add any wallet from any blockchain
 
 ### 3 security layers:
@@ -107,8 +108,8 @@ cargo build --release
 ```
 
 **Parameters:**
-- `--wallet` - Wallet type: `xaman` or `web3auth`
-- `--signature` - Signature hex (full blob for Xaman, DER for Web3Auth)
+- `--wallet` - Wallet type: `xaman`, `web3auth`, or `bifrost`
+- `--signature` - Signature hex (full blob for Xaman, DER for Web3Auth, EIP-191 for Bifrost)
 - `--address` - Wallet address that signed (e.g., rAddress for XRPL, 0x for Ethereum)
 - `--challenge` - Unique challenge string that was signed
 
@@ -137,6 +138,15 @@ cargo build --release
   --challenge "example.com:1234567891:..."
 ```
 
+**Bifrost (EVM/Ethereum):**
+```bash
+./target/release/wallet-signature-verify \
+  --wallet bifrost \
+  --signature "0xe5092134a1e3a91dafe7095916466a00..." \
+  --address "0x33f9D9f0348c1a4Bace2ad839903bBD47F430651" \
+  --challenge "nuff.tech:1760706960:afba42ef-fbb7-4504-8915-583046d6eb26:login:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651"
+```
+
 **📚 See more examples:**
 - [QUICKSTART.md](./docs/QUICKSTART.md) - 5-minute quick start
 - [USAGE.md](./docs/USAGE.md) - Examples in Python/Node/Rust
@@ -153,7 +163,7 @@ Add to your `Cargo.toml`:
 ```toml
 # All wallets (default)
 [dependencies]
-wallet-signature-verify = "0.1"
+wallet-signature-verify = "0.2"
 
 # Or from path
 [dependencies]
@@ -167,19 +177,23 @@ Choose which wallets to include to reduce compilation time and dependencies:
 ```toml
 # Only Xaman wallet
 [dependencies]
-wallet-signature-verify = { version = "0.1", default-features = false, features = ["xaman"] }
+wallet-signature-verify = { version = "0.2", default-features = false, features = ["xaman"] }
 
 # Only Web3Auth wallet
 [dependencies]
-wallet-signature-verify = { version = "0.1", default-features = false, features = ["web3auth"] }
+wallet-signature-verify = { version = "0.2", default-features = false, features = ["web3auth"] }
+
+# Only Bifrost wallet (EVM-compatible)
+[dependencies]
+wallet-signature-verify = { version = "0.2", default-features = false, features = ["bifrost"] }
 
 # Multiple specific wallets
 [dependencies]
-wallet-signature-verify = { version = "0.1", default-features = false, features = ["xaman", "web3auth"] }
+wallet-signature-verify = { version = "0.2", default-features = false, features = ["xaman", "web3auth", "bifrost"] }
 
 # All wallets (same as default)
 [dependencies]
-wallet-signature-verify = { version = "0.1", features = ["all-wallets"] }
+wallet-signature-verify = { version = "0.2", features = ["all-wallets"] }
 ```
 
 **Available Features:**
@@ -188,9 +202,10 @@ wallet-signature-verify = { version = "0.1", features = ["all-wallets"] }
 |---------|-------------|---------------|
 | `xaman` | Xaman Wallet (XRPL SignIn) support | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/xaman/index.html) |
 | `web3auth` | Web3Auth wallet support | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/web3auth/index.html) |
+| `bifrost` | Bifrost/EVM wallets with EIP-191 signatures | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/bifrost/index.html) |
 | `cli` | CLI binary with logging (for binary only) | - |
 | `all-wallets` | Convenience feature for all wallets | - |
-| **default** | `["xaman", "web3auth", "cli"]` | - |
+| **default** | `["xaman", "web3auth", "bifrost", "cli"]` | - |
 
 **Benefits of selective features:**
 - ✅ Faster compile times
@@ -291,7 +306,7 @@ if (verify('xaman', sig, addr, ch)) {
 
 ### Test Suite
 
-This library includes a comprehensive test suite with **35 Bitcoin-grade tests**:
+This library includes a comprehensive test suite with **46 Bitcoin-grade tests**:
 
 ```bash
 # Run all tests
@@ -309,6 +324,7 @@ cargo llvm-cov --all-features --open
 - ✅ **17 Crypto Unit Tests** - SHA-512Half, RIPEMD-160, ECDSA, Ed25519
 - ✅ **9 Xaman Integration Tests** - Real signatures, replay attacks, tampering
 - ✅ **8 Web3Auth Integration Tests** - Public key recovery, DER parsing
+- ✅ **11 Bifrost Integration Tests** - EIP-191 signatures, EVM address recovery, format validation
 
 **Security Tests:**
 - 🚫 Signature tampering detection
