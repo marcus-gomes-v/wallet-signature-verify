@@ -1,6 +1,6 @@
 [package]
 name = "wallet-signature-verify"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 rust-version = "1.85"
 description = "Universal wallet signature verifier using challenge-response authentication. Receives a challenge, wallet address, and signature, then validates that the address actually signed the challenge."
