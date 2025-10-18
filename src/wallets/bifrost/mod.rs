@@ -4,6 +4,6 @@
 //! It supports Ethereum-style signatures (secp256k1) with EIP-191 message signing.
 
 mod provider;
-mod core;
+pub mod core;
 
 pub use provider::BifrostProvider;
