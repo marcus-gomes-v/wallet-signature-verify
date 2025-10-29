@@ -53,7 +53,11 @@ pub fn extract_fields(hex: &str) -> anyhow::Result<TransactionFields> {
             while i < bytes.len() {
                 // End of array markers
                 if bytes[i] == 0xE1 || bytes[i] == 0xF1 {
-                    log::debug!("Found end-of-array marker 0x{:02X} at position {}", bytes[i], i);
+                    log::debug!(
+                        "Found end-of-array marker 0x{:02X} at position {}",
+                        bytes[i],
+                        i
+                    );
                     break;
                 }
 
@@ -64,7 +68,10 @@ pub fn extract_fields(hex: &str) -> anyhow::Result<TransactionFields> {
                     i += 1;
                     if i + len <= bytes.len() {
                         memo_data = bytes[i..i + len].to_vec();
-                        log::debug!("Found MemoData (0x7C) in memo array: {} bytes", memo_data.len());
+                        log::debug!(
+                            "Found MemoData (0x7C) in memo array: {} bytes",
+                            memo_data.len()
+                        );
                         if let Ok(s) = String::from_utf8(memo_data.clone()) {
                             log::debug!("  Content: {}", s);
                         }
@@ -80,7 +87,10 @@ pub fn extract_fields(hex: &str) -> anyhow::Result<TransactionFields> {
                     i += 1;
                     if i + len <= bytes.len() {
                         memo_type = bytes[i..i + len].to_vec();
-                        log::debug!("Found MemoType (0x7D) in memo array: {} bytes", memo_type.len());
+                        log::debug!(
+                            "Found MemoType (0x7D) in memo array: {} bytes",
+                            memo_type.len()
+                        );
                         if let Ok(s) = String::from_utf8(memo_type.clone()) {
                             log::debug!("  Content: {}", s);
                         }
@@ -102,10 +112,16 @@ pub fn extract_fields(hex: &str) -> anyhow::Result<TransactionFields> {
     // - Otherwise use MemoData (0x7C)
     // This handles different wallet implementations
     let challenge_field = if memo_type.len() > memo_data.len() {
-        log::debug!("Using MemoType (0x7D) as challenge field ({} bytes)", memo_type.len());
+        log::debug!(
+            "Using MemoType (0x7D) as challenge field ({} bytes)",
+            memo_type.len()
+        );
         memo_type
     } else {
-        log::debug!("Using MemoData (0x7C) as challenge field ({} bytes)", memo_data.len());
+        log::debug!(
+            "Using MemoData (0x7C) as challenge field ({} bytes)",
+            memo_data.len()
+        );
         memo_data
     };
 
