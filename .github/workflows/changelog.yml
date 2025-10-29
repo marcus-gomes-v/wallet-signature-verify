@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: main
 
       - name: Generate changelog
         uses: orhun/git-cliff-action@v4
@@ -34,10 +35,6 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-
-          # Checkout main branch (we're in detached HEAD from tag)
-          git fetch origin main
-          git checkout main
 
           # Add and commit changes
           git add CHANGELOG.md
