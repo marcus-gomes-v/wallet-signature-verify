@@ -1,18 +1,18 @@
-//! Integration tests for Bifrost (EVM) signature verification
+//! Integration tests for WalletConnect (EVM) signature verification
 //!
-//! Bifrost and other EVM-compatible wallets use Ethereum-style signatures (secp256k1)
+//! WalletConnect and other EVM-compatible wallets use Ethereum-style signatures (secp256k1)
 //! with EIP-191 message signing format.
 //!
 //! These tests verify that signatures are cryptographically validated using real test data.
 
-use wallet_signature_verify::wallets::bifrost::core::verify_evm_signature;
+use wallet_signature_verify::wallets::wallet_connect::core::verify_evm_signature;
 
-/// Test Bifrost with a real, valid signature
+/// Test WalletConnect with a real, valid signature
 ///
-/// This test uses actual signature data from a Bifrost wallet that was validated
+/// This test uses actual signature data from a WalletConnect wallet that was validated
 /// to work correctly with the wallet-signature-verify binary.
 #[test]
-fn test_bifrost_valid_signature() {
+fn test_wallet_connect_valid_signature() {
     // Real test data from successful verification
     let signature = "0xe5092134a1e3a91dafe7095916466a00d93fa01c540914fc3a010c05220281eb1f8fbcb34ce784875cd4a01cabef782c3c0f7e33d508410e957fb01c1c5b10071b";
     let challenge = "nuff.tech:1760706960:afba42ef-fbb7-4504-8915-583046d6eb26:login:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
@@ -22,7 +22,7 @@ fn test_bifrost_valid_signature() {
 
     assert!(
         result.is_ok(),
-        "Valid Bifrost signature should verify successfully"
+        "Valid WalletConnect signature should verify successfully"
     );
 
     let verification = result.unwrap();
@@ -38,9 +38,9 @@ fn test_bifrost_valid_signature() {
     );
 }
 
-/// Test Bifrost signature verification without 0x prefix
+/// Test WalletConnect signature verification without 0x prefix
 #[test]
-fn test_bifrost_signature_without_0x_prefix() {
+fn test_wallet_connect_signature_without_0x_prefix() {
     let signature = "e5092134a1e3a91dafe7095916466a00d93fa01c540914fc3a010c05220281eb1f8fbcb34ce784875cd4a01cabef782c3c0f7e33d508410e957fb01c1c5b10071b";
     let challenge = "nuff.tech:1760706960:afba42ef-fbb7-4504-8915-583046d6eb26:login:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
     let address = "0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
@@ -55,9 +55,9 @@ fn test_bifrost_signature_without_0x_prefix() {
     assert!(result.unwrap().is_valid(), "Verification should pass");
 }
 
-/// Test Bifrost with wrong address (signature is valid but for different address)
+/// Test WalletConnect with wrong address (signature is valid but for different address)
 #[test]
-fn test_bifrost_wrong_address() {
+fn test_wallet_connect_wrong_address() {
     let signature = "0xe5092134a1e3a91dafe7095916466a00d93fa01c540914fc3a010c05220281eb1f8fbcb34ce784875cd4a01cabef782c3c0f7e33d508410e957fb01c1c5b10071b";
     let challenge = "nuff.tech:1760706960:afba42ef-fbb7-4504-8915-583046d6eb26:login:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
     let wrong_address = "0x0000000000000000000000000000000000000000";
@@ -77,9 +77,9 @@ fn test_bifrost_wrong_address() {
     assert!(!verification.address_valid, "Address check should fail");
 }
 
-/// Test Bifrost with wrong challenge (signature is for different challenge)
+/// Test WalletConnect with wrong challenge (signature is for different challenge)
 #[test]
-fn test_bifrost_wrong_challenge() {
+fn test_wallet_connect_wrong_challenge() {
     let signature = "0xe5092134a1e3a91dafe7095916466a00d93fa01c540914fc3a010c05220281eb1f8fbcb34ce784875cd4a01cabef782c3c0f7e33d508410e957fb01c1c5b10071b";
     let wrong_challenge =
         "nuff.tech:9999999999:different:challenge:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
@@ -99,9 +99,9 @@ fn test_bifrost_wrong_challenge() {
     );
 }
 
-/// Test Bifrost with invalid signature format (too short)
+/// Test WalletConnect with invalid signature format (too short)
 #[test]
-fn test_bifrost_invalid_signature_length() {
+fn test_wallet_connect_invalid_signature_length() {
     let invalid_signature = "0xe5092134a1e3a91dafe709"; // Too short
     let challenge = "test:challenge";
     let address = "0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
@@ -114,9 +114,9 @@ fn test_bifrost_invalid_signature_length() {
     );
 }
 
-/// Test Bifrost with malformed signature hex
+/// Test WalletConnect with malformed signature hex
 #[test]
-fn test_bifrost_invalid_hex() {
+fn test_wallet_connect_invalid_hex() {
     let invalid_hex = "0xZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"; // Invalid hex characters
     let challenge = "test:challenge";
     let address = "0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
@@ -126,10 +126,10 @@ fn test_bifrost_invalid_hex() {
     assert!(result.is_err(), "Invalid hex should return error");
 }
 
-/// Test Bifrost address case insensitivity
+/// Test WalletConnect address case insensitivity
 /// Ethereum addresses are case-insensitive for comparison
 #[test]
-fn test_bifrost_address_case_insensitive() {
+fn test_wallet_connect_address_case_insensitive() {
     let signature = "0xe5092134a1e3a91dafe7095916466a00d93fa01c540914fc3a010c05220281eb1f8fbcb34ce784875cd4a01cabef782c3c0f7e33d508410e957fb01c1c5b10071b";
     let challenge = "nuff.tech:1760706960:afba42ef-fbb7-4504-8915-583046d6eb26:login:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
 
@@ -150,10 +150,10 @@ fn test_bifrost_address_case_insensitive() {
     );
 }
 
-/// Test that Bifrost verification is deterministic
+/// Test that WalletConnect verification is deterministic
 /// Same inputs should always produce same outputs
 #[test]
-fn test_bifrost_deterministic() {
+fn test_wallet_connect_deterministic() {
     let signature = "0xe5092134a1e3a91dafe7095916466a00d93fa01c540914fc3a010c05220281eb1f8fbcb34ce784875cd4a01cabef782c3c0f7e33d508410e957fb01c1c5b10071b";
     let challenge = "nuff.tech:1760706960:afba42ef-fbb7-4504-8915-583046d6eb26:login:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
     let address = "0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
@@ -175,9 +175,9 @@ fn test_bifrost_deterministic() {
     assert_eq!(valid2, valid3);
 }
 
-/// Test Bifrost with empty challenge
+/// Test WalletConnect with empty challenge
 #[test]
-fn test_bifrost_empty_challenge() {
+fn test_wallet_connect_empty_challenge() {
     let signature = "0xe5092134a1e3a91dafe7095916466a00d93fa01c540914fc3a010c05220281eb1f8fbcb34ce784875cd4a01cabef782c3c0f7e33d508410e957fb01c1c5b10071b";
     let empty_challenge = "";
     let address = "0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
@@ -192,9 +192,9 @@ fn test_bifrost_empty_challenge() {
     );
 }
 
-/// Test Bifrost signature format (65 bytes: r + s + v)
+/// Test WalletConnect signature format (65 bytes: r + s + v)
 #[test]
-fn test_bifrost_signature_components() {
+fn test_wallet_connect_signature_components() {
     let signature = "0xe5092134a1e3a91dafe7095916466a00d93fa01c540914fc3a010c05220281eb1f8fbcb34ce784875cd4a01cabef782c3c0f7e33d508410e957fb01c1c5b10071b";
 
     // Remove 0x prefix
@@ -214,10 +214,10 @@ fn test_bifrost_signature_components() {
     );
 }
 
-/// Test that Bifrost uses EIP-191 message format
+/// Test that WalletConnect uses EIP-191 message format
 /// This is implicitly tested by the fact that our known signature works
 #[test]
-fn test_bifrost_eip191_format() {
+fn test_wallet_connect_eip191_format() {
     // The fact that our real signature validates proves EIP-191 format is being used
     // because that's the standard for personal_sign in Ethereum wallets
     let signature = "0xe5092134a1e3a91dafe7095916466a00d93fa01c540914fc3a010c05220281eb1f8fbcb34ce784875cd4a01cabef782c3c0f7e33d508410e957fb01c1c5b10071b";

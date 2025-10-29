@@ -23,7 +23,7 @@ This tool implements a **secure authentication system** based on 4 components:
 ### Currently supports:
 - 🦊 **Xaman Wallet** (XRPL SignIn transactions)
 - 🌐 **Web3Auth** (secp256k1 raw signatures)
-- 🌉 **Bifrost Wallet** (EVM-compatible wallets with EIP-191 signatures)
+- 🌉 **WalletConnect** (EVM-compatible wallets with EIP-191 signatures via WalletConnect)
 - 🔧 **Extensible architecture** to easily add any wallet from any blockchain
 
 ### 3 security layers:
@@ -108,7 +108,7 @@ cargo build --release
 ```
 
 **Parameters:**
-- `--wallet` - Wallet type: `xaman`, `web3auth`, or `bifrost`
+- `--wallet` - Wallet type: `xaman`, `web3auth`, or `wallet_connect`
 - `--signature` - Signature hex (full blob for Xaman, DER for Web3Auth, EIP-191 for Bifrost)
 - `--address` - Wallet address that signed (e.g., rAddress for XRPL, 0x for Ethereum)
 - `--challenge` - Unique challenge string that was signed
@@ -141,7 +141,7 @@ cargo build --release
 **Bifrost (EVM/Ethereum):**
 ```bash
 ./target/release/wallet-signature-verify \
-  --wallet bifrost \
+  --wallet wallet_connect \
   --signature "0xe5092134a1e3a91dafe7095916466a00..." \
   --address "0x33f9D9f0348c1a4Bace2ad839903bBD47F430651" \
   --challenge "nuff.tech:1760706960:afba42ef-fbb7-4504-8915-583046d6eb26:login:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651"
@@ -163,7 +163,7 @@ Add to your `Cargo.toml`:
 ```toml
 # All wallets (default)
 [dependencies]
-wallet-signature-verify = "0.2"
+wallet-signature-verify = "0.3"
 
 # Or from path
 [dependencies]
@@ -185,11 +185,11 @@ wallet-signature-verify = { version = "0.2", default-features = false, features 
 
 # Only Bifrost wallet (EVM-compatible)
 [dependencies]
-wallet-signature-verify = { version = "0.2", default-features = false, features = ["bifrost"] }
+wallet-signature-verify = { version = "0.2", default-features = false, features = ["wallet_connect"] }
 
 # Multiple specific wallets
 [dependencies]
-wallet-signature-verify = { version = "0.2", default-features = false, features = ["xaman", "web3auth", "bifrost"] }
+wallet-signature-verify = { version = "0.2", default-features = false, features = ["xaman", "web3auth", "wallet_connect"] }
 
 # All wallets (same as default)
 [dependencies]
@@ -202,10 +202,10 @@ wallet-signature-verify = { version = "0.2", features = ["all-wallets"] }
 |---------|-------------|---------------|
 | `xaman` | Xaman Wallet (XRPL SignIn) support | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/xaman/index.html) |
 | `web3auth` | Web3Auth wallet support | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/web3auth/index.html) |
-| `bifrost` | Bifrost/EVM wallets with EIP-191 signatures | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/bifrost/index.html) |
+| `wallet_connect` | Bifrost/EVM wallets with EIP-191 signatures | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/wallet_connect/index.html) |
 | `cli` | CLI binary with logging (for binary only) | - |
 | `all-wallets` | Convenience feature for all wallets | - |
-| **default** | `["xaman", "web3auth", "bifrost", "cli"]` | - |
+| **default** | `["xaman", "web3auth", "wallet_connect", "cli"]` | - |
 
 **Benefits of selective features:**
 - ✅ Faster compile times

@@ -1,13 +1,13 @@
-//! Bifrost Wallet Provider
+//! WalletConnect Provider
 //!
-//! This module provides signature verification for Bifrost and other EVM-compatible wallets.
+//! This module provides signature verification for WalletConnect and other EVM-compatible wallets.
 //! It supports Ethereum-style signatures (secp256k1) with EIP-191 message signing.
 //!
 //! # Supported Wallets
 //!
-//! - Bifrost Wallet
-//! - MetaMask
 //! - WalletConnect
+//! - MetaMask
+//! - Bifrost Wallet
 //! - Any EVM-compatible wallet using `personal_sign`
 //!
 //! # Signature Format
@@ -28,7 +28,7 @@
 //!     challenge: Some("nuff.tech:1760706960:afba42ef-fbb7-4504-8915-583046d6eb26:login:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651".to_string()),
 //! };
 //!
-//! let provider = get_wallet_provider(WalletType::Bifrost);
+//! let provider = get_wallet_provider(WalletType::WalletConnect);
 //! let result = provider.verify(&input)?;
 //!
 //! assert!(result.is_valid());
@@ -38,4 +38,4 @@
 pub mod core;
 mod provider;
 
-pub use provider::BifrostProvider;
+pub use provider::WalletConnectProvider;

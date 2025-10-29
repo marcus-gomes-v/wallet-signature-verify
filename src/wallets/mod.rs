@@ -35,9 +35,9 @@ pub mod web3auth;
 #[cfg_attr(docsrs, doc(cfg(feature = "xaman")))]
 pub mod xaman;
 
-#[cfg(feature = "bifrost")]
-#[cfg_attr(docsrs, doc(cfg(feature = "bifrost")))]
-pub mod bifrost;
+#[cfg(feature = "wallet_connect")]
+#[cfg_attr(docsrs, doc(cfg(feature = "wallet_connect")))]
+pub mod wallet_connect;
 
 pub use provider::{VerificationInput, WalletProvider};
 pub use registry::{get_wallet_provider, WalletType};
@@ -50,6 +50,6 @@ pub use web3auth::Web3AuthProvider;
 #[cfg_attr(docsrs, doc(cfg(feature = "xaman")))]
 pub use xaman::XamanProvider;
 
-#[cfg(feature = "bifrost")]
-#[cfg_attr(docsrs, doc(cfg(feature = "bifrost")))]
-pub use bifrost::BifrostProvider;
+#[cfg(feature = "wallet_connect")]
+#[cfg_attr(docsrs, doc(cfg(feature = "wallet_connect")))]
+pub use wallet_connect::WalletConnectProvider;

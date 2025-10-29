@@ -4,7 +4,7 @@ use hex::FromHex;
 
 /// Verifies an EVM (Ethereum-style) signature
 ///
-/// This function verifies signatures from EVM-compatible wallets like Bifrost.
+/// This function verifies signatures from EVM-compatible wallets like WalletConnect, MetaMask, and Bifrost.
 /// It uses EIP-191 personal_sign message format.
 pub fn verify_evm_signature(
     signature_hex: &str,

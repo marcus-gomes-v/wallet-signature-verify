@@ -11,7 +11,7 @@
 //!
 //! - `xaman` - Support for Xaman wallet (XRPL SignIn)
 //! - `web3auth` - Support for Web3Auth wallet
-//! - `bifrost` - Support for Bifrost and EVM-compatible wallets (EIP-191)
+//! - `wallet_connect` - Support for WalletConnect and EVM-compatible wallets (EIP-191)
 //! - `cli` - CLI binary with env_logger
 //! - `all-wallets` - Convenience feature to enable all wallets
 //!
@@ -23,13 +23,13 @@
 //! ```toml
 //! # Cargo.toml - All wallets (default)
 //! [dependencies]
-//! wallet-signature-verify = "0.2"
+//! wallet-signature-verify = "0.3"
 //!
 //! # Only specific wallets
 //! [dependencies]
 //! wallet-signature-verify = { version = "0.2", default-features = false, features = ["xaman"] }
 //! wallet-signature-verify = { version = "0.2", default-features = false, features = ["web3auth"] }
-//! wallet-signature-verify = { version = "0.2", default-features = false, features = ["bifrost"] }
+//! wallet-signature-verify = { version = "0.2", default-features = false, features = ["wallet_connect"] }
 //! ```
 //!
 //! ## Example Usage
@@ -70,7 +70,7 @@
 //! 1. **Challenge** - A unique message to be signed (e.g., "domain:timestamp:uuid:action:address")
 //! 2. **Address** - The wallet address that signed the challenge
 //! 3. **Signature** - The cryptographic signature (hex, DER, or EIP-191 format)
-//! 4. **Wallet Type** - Which wallet was used (Xaman, Web3Auth, Bifrost, etc.)
+//! 4. **Wallet Type** - Which wallet was used (Xaman, Web3Auth, WalletConnect, etc.)
 //!
 //! The verifier validates that the address actually signed the challenge, proving
 //! ownership of the private key without exposing it.
