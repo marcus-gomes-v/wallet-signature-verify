@@ -220,9 +220,9 @@ fn test_wallet_connect_signature_components() {
 fn test_wallet_connect_eip191_format() {
     // The fact that our real signature validates proves EIP-191 format is being used
     // because that's the standard for personal_sign in Ethereum wallets
-    let signature = "0xe5092134a1e3a91dafe7095916466a00d93fa01c540914fc3a010c05220281eb1f8fbcb34ce784875cd4a01cabef782c3c0f7e33d508410e957fb01c1c5b10071b";
-    let challenge = "nuff.tech:1760706960:afba42ef-fbb7-4504-8915-583046d6eb26:login:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
-    let address = "0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
+    let signature = "0x88174225c2f732d8b0dd086b57abf79e8c40d0523149f024eda9a329f0f16318724b9ba2b830a7dfd1f59618ee4c2406efc63c6b2301e3dbe669e0699b1769591c";
+    let challenge = "example.com:1760079290:57e06102-c0c8-4cf8-be97-530c2515a55d:synk:0x33f9D9f0348c1a4Bace2ad839903bBD47F430651";
+    let address = "0x93b9149A44dCa1d942c220e08CA12e37bb4CEFFC";
 
     let result = verify_evm_signature(signature, challenge, address);
 
