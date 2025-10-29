@@ -2,12 +2,12 @@ use super::super::provider::{VerificationInput, WalletProvider};
 use super::core::verify_evm_signature;
 use crate::types::VerificationResult;
 
-/// Provider for Bifrost and other EVM-compatible wallets
+/// Provider for WalletConnect and other EVM-compatible wallets
 ///
 /// # Overview
 ///
-/// BifrostProvider implements signature verification for Ethereum-style wallets
-/// including Bifrost, MetaMask, WalletConnect, and other EVM-compatible wallets.
+/// WalletConnectProvider implements signature verification for Ethereum-style wallets
+/// including WalletConnect, MetaMask, Bifrost, and other EVM-compatible wallets.
 ///
 /// # Signature Format
 ///
@@ -27,7 +27,7 @@ use crate::types::VerificationResult;
 ///     challenge: Some("nuff.tech:1760706960:uuid:login:0x...".to_string()),
 /// };
 ///
-/// let provider = get_wallet_provider(WalletType::Bifrost);
+/// let provider = get_wallet_provider(WalletType::WalletConnect);
 /// let result = provider.verify(&input)?;
 ///
 /// if result.is_valid() {
@@ -35,22 +35,22 @@ use crate::types::VerificationResult;
 /// }
 /// # Ok::<(), anyhow::Error>(())
 /// ```
-pub struct BifrostProvider;
+pub struct WalletConnectProvider;
 
-impl WalletProvider for BifrostProvider {
+impl WalletProvider for WalletConnectProvider {
     fn name(&self) -> &str {
-        "Bifrost Wallet"
+        "WalletConnect"
     }
 
     fn description(&self) -> &str {
-        "Bifrost - EVM-compatible wallet signature verification (Ethereum-style signatures)"
+        "WalletConnect - EVM-compatible wallet signature verification (Ethereum-style signatures)"
     }
 
     fn validate_input(&self, input: &VerificationInput) -> anyhow::Result<()> {
         // Validate that we have a challenge
         if input.challenge.is_none() {
             return Err(anyhow::anyhow!(
-                "Bifrost: challenge is required for verification"
+                "WalletConnect: challenge is required for verification"
             ));
         }
 
@@ -60,7 +60,7 @@ impl WalletProvider for BifrostProvider {
 
         if sig.len() != 130 {
             return Err(anyhow::anyhow!(
-                "Bifrost: signature_data must be 65 bytes (130 hex chars), got {} chars",
+                "WalletConnect: signature_data must be 65 bytes (130 hex chars), got {} chars",
                 sig.len()
             ));
         }
@@ -68,7 +68,7 @@ impl WalletProvider for BifrostProvider {
         // Validate that it's valid hex
         if !sig.chars().all(|c| c.is_ascii_hexdigit()) {
             return Err(anyhow::anyhow!(
-                "Bifrost: signature_data must be valid hexadecimal"
+                "WalletConnect: signature_data must be valid hexadecimal"
             ));
         }
 
@@ -76,13 +76,13 @@ impl WalletProvider for BifrostProvider {
         let addr = input.expected_address.trim_start_matches("0x");
         if addr.len() != 40 {
             return Err(anyhow::anyhow!(
-                "Bifrost: expected_address must be an Ethereum address (0x + 40 hex chars)"
+                "WalletConnect: expected_address must be an Ethereum address (0x + 40 hex chars)"
             ));
         }
 
         if !addr.chars().all(|c| c.is_ascii_hexdigit()) {
             return Err(anyhow::anyhow!(
-                "Bifrost: expected_address must be valid hexadecimal"
+                "WalletConnect: expected_address must be valid hexadecimal"
             ));
         }
 
@@ -95,7 +95,7 @@ impl WalletProvider for BifrostProvider {
         let challenge = input
             .challenge
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Bifrost requires challenge"))?;
+            .ok_or_else(|| anyhow::anyhow!("WalletConnect requires challenge"))?;
 
         verify_evm_signature(&input.signature_data, challenge, &input.expected_address)
     }

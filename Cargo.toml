@@ -1,6 +1,6 @@
 [package]
 name = "wallet-signature-verify"
-version = "0.2.2"
+version = "0.3.0"
 edition = "2021"
 rust-version = "1.85"
 description = "Universal wallet signature verifier using challenge-response authentication. Receives a challenge, wallet address, and signature, then validates that the address actually signed the challenge."
@@ -29,12 +29,12 @@ required-features = ["cli"]
 
 # Features allow users to choose which wallets to include
 [features]
-default = ["xaman", "web3auth", "bifrost", "cli"]
-cli = ["env_logger"]  # CLI-specific features
-xaman = []            # Xaman wallet support
-web3auth = []         # Web3Auth wallet support
-bifrost = []          # Bifrost wallet support (EVM)
-all-wallets = ["xaman", "web3auth", "bifrost"]  # Convenience feature for all wallets
+default = ["xaman", "web3auth", "wallet_connect", "cli"]
+cli = ["env_logger"]     # CLI-specific features
+xaman = []               # Xaman wallet support
+web3auth = []            # Web3Auth wallet support
+wallet_connect = []      # WalletConnect support (EVM)
+all-wallets = ["xaman", "web3auth", "wallet_connect"]  # Convenience feature for all wallets
 
 [dependencies]
 anyhow = "1"
