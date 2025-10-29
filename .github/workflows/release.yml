@@ -27,6 +27,8 @@ jobs:
 
       - name: Publish to crates.io (Trusted Publishing)
         run: cargo publish
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
