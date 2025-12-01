@@ -95,6 +95,33 @@ fn main() -> anyhow::Result<()> {
         }
     }
 
+    // ============================================
+    // Example 4: Solana Wallet Signing
+    // ============================================
+    println!("📝 Example 4: Verifying Solana based Wallet...");
+
+    let solana_input = VerificationInput {
+        signature_data: "2veC18hrkpkTmf...TRUNCATED..PLFEgYePn5tvPXi7y6af1ZNZK4dWqLmv5kT9YDkYkU".to_string(),
+        expected_address: "4MB1c1DJR8TestAddrMA8an3X5cEbnabc".to_string(),
+        challenge: Some("example.com:1234567891:87654321-dcba-4321-dcba-987654321cba:login:solanaAddress789012345567890abc".to_string()),
+    };
+
+    let solana_provider = get_wallet_provider(WalletType::Solana);
+
+    match solana_provider.verify(&solana_input) {
+        Ok(result) if result.is_valid() => {
+            println!("   ✅ solana: Authentication VALID");
+            println!("   → Derived address: {}", result.derived_address);
+            println!("   → Challenge valid: {}\n", result.challenge_valid);
+        }
+        Ok(_) => {
+            println!("   ❌ solana: Authentication FAILED\n");
+        }
+        Err(e) => {
+            println!("   ⚠️  solana: Error - {}\n", e);
+        }
+    }
+
     println!("\n🎉 Examples completed!");
     Ok(())
 }

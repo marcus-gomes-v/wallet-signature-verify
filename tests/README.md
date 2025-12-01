@@ -4,17 +4,13 @@
 
 ## Test Coverage Summary
 
-```
-✅ 34 Tests Passing | 0 Failed | 100% Success Rate
-```
+All suites are passing (`cargo test`):
 
-### Breakdown
-
-| Test Category | Count | Status |
-|--------------|-------|--------|
-| **Cryptographic Unit Tests** | 17 | ✅ ALL PASS |
-| **Xaman Integration Tests** | 9 | ✅ ALL PASS |
-| **Web3Auth Integration Tests** | 8 | ✅ ALL PASS |
+- Cryptographic unit tests
+- Xaman integration tests
+- Web3Auth integration tests
+- WalletConnect integration tests
+- Solana integration tests
 
 ---
 
@@ -105,6 +101,23 @@ Located in: `tests/web3auth_integration_tests.rs`
 - DER to compact signature conversion
 - Recovery ID iteration (4 candidates)
 - Address derivation matches XRPL format
+
+---
+
+## 🪙 Solana Integration Tests
+
+Located in: `tests/solana_integration_tests.rs`
+
+### Core Functionality
+- ✅ Valid signature over raw challenge bytes
+- ✅ Deterministic verification (same inputs = same outputs)
+
+### Attack/Edge Cases
+- ✅ Wrong challenge rejected (prevents replay)
+- ✅ Wrong address rejected
+- ✅ Invalid signature length rejected
+- ✅ Non-base58 signatures rejected
+- ✅ Missing challenge rejected
 
 ---
 

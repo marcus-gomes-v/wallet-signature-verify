@@ -24,6 +24,7 @@ This tool implements a **secure authentication system** based on 4 components:
 - 🦊 **Xaman Wallet** (XRPL SignIn transactions)
 - 🌐 **Web3Auth** (secp256k1 raw signatures)
 - 🌉 **WalletConnect** (EVM-compatible wallets with EIP-191 signatures via WalletConnect)
+- 🪙 **Solana wallets** (Ed25519 signatures over raw challenges)
 - 🔧 **Extensible architecture** to easily add any wallet from any blockchain
 
 ### 3 security layers:
@@ -203,9 +204,10 @@ wallet-signature-verify = { version = "0.2", features = ["all-wallets"] }
 | `xaman` | Xaman Wallet (XRPL SignIn) support | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/xaman/index.html) |
 | `web3auth` | Web3Auth wallet support | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/web3auth/index.html) |
 | `wallet_connect` | Bifrost/EVM wallets with EIP-191 signatures | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/wallet_connect/index.html) |
+| `solana` | Solana wallets (Ed25519 signatures) | [docs](https://docs.rs/wallet-signature-verify/latest/wallet_signature_verify/wallets/solana/index.html) |
 | `cli` | CLI binary with logging (for binary only) | - |
 | `all-wallets` | Convenience feature for all wallets | - |
-| **default** | `["xaman", "web3auth", "wallet_connect", "cli"]` | - |
+| **default** | `["xaman", "web3auth", "wallet_connect", "solana", "cli"]` | - |
 
 **Benefits of selective features:**
 - ✅ Faster compile times
