@@ -11,7 +11,8 @@ fn decode_base58(data: &str) -> Result<Vec<u8>, Bs58Error> {
 }
 
 fn validate_base58_pubkey(address: &str) -> anyhow::Result<Vec<u8>> {
-    let pubkey = decode_base58(address).map_err(|e| anyhow::anyhow!("Solana: invalid address (base58 decode failed): {e}"))?;
+    let pubkey = decode_base58(address)
+        .map_err(|e| anyhow::anyhow!("Solana: invalid address (base58 decode failed): {e}"))?;
     if pubkey.len() != 32 {
         return Err(anyhow::anyhow!(
             "Solana: address must decode to 32 bytes (got {})",
@@ -22,7 +23,8 @@ fn validate_base58_pubkey(address: &str) -> anyhow::Result<Vec<u8>> {
 }
 
 fn validate_base58_signature(sig: &str) -> anyhow::Result<Vec<u8>> {
-    let signature = decode_base58(sig).map_err(|e| anyhow::anyhow!("Solana: invalid signature (base58 decode failed): {e}"))?;
+    let signature = decode_base58(sig)
+        .map_err(|e| anyhow::anyhow!("Solana: invalid signature (base58 decode failed): {e}"))?;
     if signature.len() != 64 {
         return Err(anyhow::anyhow!(
             "Solana: signature must decode to 64 bytes (got {})",
@@ -43,7 +45,9 @@ impl WalletProvider for SolanaProvider {
 
     fn validate_input(&self, input: &VerificationInput) -> anyhow::Result<()> {
         if input.challenge.is_none() {
-            return Err(anyhow::anyhow!("Solana: challenge is required for verification"));
+            return Err(anyhow::anyhow!(
+                "Solana: challenge is required for verification"
+            ));
         }
 
         // Validate address and signature encodings/lengths

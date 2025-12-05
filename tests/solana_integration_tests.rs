@@ -3,7 +3,6 @@
 //! Solana wallets use Ed25519 signatures over the raw challenge bytes.
 //! These tests cover valid flows and common failure modes (wrong challenge, wrong address, invalid encodings, and determinism).
 
-use bs58;
 use ed25519_dalek::{Signer, SigningKey};
 use wallet_signature_verify::wallets::{solana::SolanaProvider, VerificationInput, WalletProvider};
 
@@ -37,7 +36,10 @@ fn solana_valid_signature_passes() {
 
     assert!(result.is_valid(), "All checks should pass");
     assert!(result.signature_valid, "Signature should be valid");
-    assert!(result.address_valid, "Address should match recovered pubkey");
+    assert!(
+        result.address_valid,
+        "Address should match recovered pubkey"
+    );
     assert_eq!(result.derived_address, address);
     assert_eq!(result.found_challenge.as_deref(), Some(challenge.as_str()));
 }
@@ -138,7 +140,10 @@ fn solana_missing_challenge_rejected() {
         challenge: None,
     });
 
-    assert!(result.is_err(), "Challenge is required for Solana verification");
+    assert!(
+        result.is_err(),
+        "Challenge is required for Solana verification"
+    );
 }
 
 #[test]
@@ -152,8 +157,12 @@ fn solana_deterministic_verification() {
         challenge: Some(challenge),
     };
 
-    let result1 = provider.verify(&input).expect("first verification should succeed");
-    let result2 = provider.verify(&input).expect("second verification should succeed");
+    let result1 = provider
+        .verify(&input)
+        .expect("first verification should succeed");
+    let result2 = provider
+        .verify(&input)
+        .expect("second verification should succeed");
 
     assert_eq!(result1.is_valid(), result2.is_valid());
     assert_eq!(result1.signature_valid, result2.signature_valid);
