@@ -39,6 +39,10 @@ pub mod xaman;
 #[cfg_attr(docsrs, doc(cfg(feature = "wallet_connect")))]
 pub mod wallet_connect;
 
+#[cfg(feature = "solana")]
+#[cfg_attr(docsrs, doc(cfg(feature = "solana")))]
+pub mod solana;
+
 pub use provider::{VerificationInput, WalletProvider};
 pub use registry::{get_wallet_provider, WalletType};
 
@@ -53,3 +57,7 @@ pub use xaman::XamanProvider;
 #[cfg(feature = "wallet_connect")]
 #[cfg_attr(docsrs, doc(cfg(feature = "wallet_connect")))]
 pub use wallet_connect::WalletConnectProvider;
+
+#[cfg(feature = "solana")]
+#[cfg_attr(docsrs, doc(cfg(feature = "solana")))]
+pub use solana::SolanaProvider;

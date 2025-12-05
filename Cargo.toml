@@ -29,12 +29,13 @@ required-features = ["cli"]
 
 # Features allow users to choose which wallets to include
 [features]
-default = ["xaman", "web3auth", "wallet_connect", "cli"]
+default = ["xaman", "web3auth", "wallet_connect", "solana", "cli"]
 cli = ["env_logger"]     # CLI-specific features
 xaman = []               # Xaman wallet support
 web3auth = []            # Web3Auth wallet support
 wallet_connect = []      # WalletConnect support (EVM)
-all-wallets = ["xaman", "web3auth", "wallet_connect"]  # Convenience feature for all wallets
+solana = []              # Solana wallet support (Ed25519)
+all-wallets = ["xaman", "web3auth", "wallet_connect", "solana"]  # Convenience feature for all wallets
 
 [dependencies]
 anyhow = "1"
@@ -48,3 +49,4 @@ log = "0.4"
 env_logger = { version = "0.11", optional = true }
 # EVM support
 ethers-core = "2.0"
+bs58 = "0.5"

@@ -10,6 +10,9 @@ use super::Web3AuthProvider;
 #[cfg(feature = "wallet_connect")]
 use super::WalletConnectProvider;
 
+#[cfg(feature = "solana")]
+use super::SolanaProvider;
+
 /// Supported wallet types
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum WalletType {
@@ -19,6 +22,8 @@ pub enum WalletType {
     Web3Auth,
     #[cfg(feature = "wallet_connect")]
     WalletConnect,
+    #[cfg(feature = "solana")]
+    Solana,
 }
 
 impl WalletType {
@@ -35,6 +40,8 @@ impl WalletType {
             "web3auth" => Ok(WalletType::Web3Auth),
             #[cfg(feature = "wallet_connect")]
             "wallet_connect" | "walletconnect" => Ok(WalletType::WalletConnect),
+            #[cfg(feature = "solana")]
+            "solana" => Ok(WalletType::Solana),
             _ => Err(format!("Wallet '{}' is not supported or not enabled", s)),
         }
     }
@@ -53,6 +60,9 @@ impl WalletType {
         #[cfg(feature = "wallet_connect")]
         wallets.push("wallet_connect");
 
+        #[cfg(feature = "solana")]
+        wallets.push("solana");
+
         wallets
     }
 }
@@ -66,6 +76,8 @@ impl fmt::Display for WalletType {
             WalletType::Web3Auth => write!(f, "Web3Auth"),
             #[cfg(feature = "wallet_connect")]
             WalletType::WalletConnect => write!(f, "WalletConnect"),
+            #[cfg(feature = "solana")]
+            WalletType::Solana => write!(f, "Solana"),
         }
     }
 }
@@ -79,6 +91,8 @@ pub fn get_wallet_provider(wallet_type: WalletType) -> Box<dyn WalletProvider> {
         WalletType::Web3Auth => Box::new(Web3AuthProvider),
         #[cfg(feature = "wallet_connect")]
         WalletType::WalletConnect => Box::new(WalletConnectProvider),
+        #[cfg(feature = "solana")]
+        WalletType::Solana => Box::new(SolanaProvider),
     }
 }
 
